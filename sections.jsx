@@ -21,7 +21,7 @@ const PROJECTS = [
       { v: '<200ms', lbl: 'public profile p95', accent: true },
     ],
     links: [
-      { label: 'Live', href: 'https://surgereviews.com' },
+      { label: 'Live', href: 'https://surge.reviews' },
     ],
   },
   {
