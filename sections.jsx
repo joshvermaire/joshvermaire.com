@@ -1,25 +1,22 @@
-// sections.jsx — Projects, Philosophy, Stack, Contact, Footer
+// sections.jsx — Projects (work), Contact, Footer
 
 const PROJECTS = [
   {
     idx: '01',
     name: 'Surge Reviews',
     role: 'Founding engineer · 2024 — present',
-    tagline: 'Home inspection review management — automated.',
+    tagline: 'Home-inspection review management, automated.',
     blurb: (
       <>
-        A multi-tenant SaaS that turns inspection reports into review pipelines.
-        Built the <b>request engine</b>, <b>edge-cached public profiles</b>, and a
-        rules-based automation layer so inspectors stop manually chasing happy
-        customers. Heavy on <b>queueing, deliverability, and idempotency</b> —
-        the boring parts that keep review automation reliable.
+        A multi-tenant SaaS that turns inspection reports into automated
+        review requests. I built the whole thing — the <b>request engine</b>,
+        public inspector profiles, and a rules-based automation layer — on a
+        Turborepo with <b>Next.js, Supabase, and Resend</b>. Most of the work
+        lives in the unglamorous parts: deliverability, idempotency, and
+        keeping the request flow reliable.
       </>
     ),
-    stack: ['Next.js', 'TypeScript', 'Postgres', 'Resend', 'Cloudflare Workers', 'Stripe'],
-    metrics: [
-      { v: '14k+', lbl: 'reviews routed/mo' },
-      { v: '<200ms', lbl: 'public profile p95', accent: true },
-    ],
+    stack: ['Next.js', 'TypeScript', 'Supabase', 'Polar', 'Resend', 'Vercel'],
     links: [
       { label: 'Live', href: 'https://surge.reviews' },
     ],
@@ -27,22 +24,19 @@ const PROJECTS = [
   {
     idx: '02',
     name: 'Auddia · Faidr',
-    role: 'Lead mobile engineer · 2022 — 2024',
-    tagline: 'Commercial-free radio app — React Native, at scale.',
+    role: 'Independent contractor · ongoing',
+    tagline: 'Commercial-free radio, in React Native.',
     blurb: (
       <>
-        Rebuilt the Faidr mobile app on <b>React Native</b>, replacing a
-        legacy native stack. Designed the playback core: a deterministic
-        <b> ad-elision engine</b> hooked into native audio, offline queues, and
-        background streaming. Shipped a release pipeline that took
-        <b> store-deploy time from days to hours</b>.
+        As an independent contractor, I work on Faidr&apos;s mobile app in
+        <b> React Native</b>. The playback core is built on
+        <b> react-native-track-player</b>, app state runs through
+        <b> Zustand</b>, and native functionality is bridged with
+        <b> Nitro Modules</b> — background streaming, offline behavior, and the
+        kind of audio-pipeline details that have to be exactly right.
       </>
     ),
-    stack: ['React Native', 'TypeScript', 'Native modules', 'Redux Toolkit', 'Firebase', 'Detox'],
-    metrics: [
-      { v: '2.0★ → 4.6★', lbl: 'app store rating' },
-      { v: '−68%', lbl: 'crash rate', accent: true },
-    ],
+    stack: ['React Native', 'TypeScript', 'Zustand', 'Track Player', 'Nitro Modules', 'React Navigation'],
     links: [
       { label: 'iOS', href: 'https://apps.apple.com/us/app/faidr/id1558795470' },
       { label: 'Android', href: 'https://play.google.com/store/apps/details?id=com.auddia.faidr' },
@@ -51,41 +45,37 @@ const PROJECTS = [
   {
     idx: '03',
     name: 'Nami Web SDK',
-    role: 'Independent contractor · 2023',
-    tagline: 'No-code paywalls everywhere — TypeScript SDK.',
+    role: 'Independent contractor · Summers 2024 & 2025',
+    tagline: 'No-code paywalls, everywhere — a TypeScript SDK.',
     blurb: (
       <>
         A typed SDK that renders Nami&apos;s no-code subscription pages and
-        paywalls on <b>web, desktop, and smart-TV</b> targets. Designed the
-        public surface, an event/state model that survives weird embed
-        contexts, and a build pipeline outputting ESM, CJS, IIFE, and
-        UMD bundles from one source of truth.
+        paywalls on <b>web, desktop, and smart-TV</b> targets. I designed and
+        built the whole thing — the public API surface, an event/state model
+        that survives awkward embed contexts, and a build pipeline that ships
+        ESM, CJS, IIFE, and UMD bundles from one source of truth.
       </>
     ),
-    stack: ['TypeScript', 'tsup', 'Vitest', 'Web Components', 'Stripe', 'Smart-TV runtimes'],
-    metrics: [
-      { v: '12kb', lbl: 'gzip core', accent: true },
-      { v: '6+', lbl: 'platforms supported' },
-    ],
+    stack: ['TypeScript', 'tsup', 'Vitest', 'Web Components', 'Smart-TV runtimes'],
     links: [
       { label: 'Docs', href: 'https://docs.namiml.com' },
     ],
   },
 ];
 
-function Projects({ density, onMouseMoveProj }) {
+function Projects({ onMouseMoveProj }) {
   return (
     <section className="projects wrap" id="projects">
       <div className="section-head">
         <div>
           <div className="section-eyebrow">Selected work</div>
           <h2 className="section-title">
-            Engineering case studies, not screenshots.
+            Work I&apos;ve shipped.
           </h2>
         </div>
         <div className="section-meta">{PROJECTS.length.toString().padStart(2,'0')} / {PROJECTS.length.toString().padStart(2,'0')}</div>
       </div>
-      <div className="proj-list" data-density={density}>
+      <div className="proj-list">
         {PROJECTS.map((p) => (
           <article key={p.idx} className="proj" onMouseMove={onMouseMoveProj}>
             <header className="proj-head">
@@ -99,155 +89,13 @@ function Projects({ density, onMouseMoveProj }) {
               <div className="proj-stack">
                 {p.stack.map((s) => <span className="tag" key={s}>{s}</span>)}
               </div>
-            </div>
-            <aside className="proj-side">
-              <div className="label col-h">Outcome</div>
-              {p.metrics.map((m, i) => (
-                <div key={i} className="metric">
-                  <span className={'v' + (m.accent ? ' accent' : '')}>{m.v}</span>
-                  <span className="lbl">{m.lbl}</span>
-                </div>
-              ))}
               <div className="proj-links">
                 {p.links.map((l) => (
                   <a key={l.label} href={l.href} target="_blank" rel="noreferrer">{l.label} ↗</a>
                 ))}
               </div>
-            </aside>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ────────────────────────────────────────────────────────────
-// PHILOSOPHY
-// ────────────────────────────────────────────────────────────
-const PRINCIPLES = [
-  {
-    n: '01',
-    h: 'Ship working systems over overengineering.',
-    p: 'Architecture earns its complexity. I default to the smallest design that handles the next 18 months — flat data models, boring queues, observable boundaries — and only reach for distributed primitives when the workload genuinely needs them.',
-    q: 'simple, then sharper.',
-  },
-  {
-    n: '02',
-    h: 'AI-assisted, not AI-driven.',
-    p: 'AI lives in the seams of my workflow: codegen for boilerplate, agents for refactors, evals for pull requests. The architecture, the trade-offs, the contracts with users — those still come from me. The result is more shipped, not less owned.',
-    q: 'taste is the bottleneck.',
-  },
-  {
-    n: '03',
-    h: 'Edge-first, latency as a product feature.',
-    p: "Cold starts, region routing, and KV-shaped data are not infra trivia — they're the difference between an app that feels alive and one that feels remote. I treat p95 latency the way I treat copy: an editable surface.",
-    q: 'closer is faster is better.',
-  },
-  {
-    n: '04',
-    h: 'Product instincts beat pure engineering.',
-    p: "I read changelogs the way other engineers read source. I pair with founders on the actual problem before reaching for a framework. The best engineering decisions I've made were the ones that quietly removed the need for engineering at all.",
-    q: 'less code, more leverage.',
-  },
-];
-
-function Philosophy() {
-  return (
-    <section className="philosophy wrap" id="philosophy">
-      <div className="section-head">
-        <div>
-          <div className="section-eyebrow">How I work</div>
-          <h2 className="section-title">
-            A point of view on shipping software in 2026.
-          </h2>
-        </div>
-        <div className="section-meta">— Engineering principles</div>
-      </div>
-      <div className="phil-grid">
-        {PRINCIPLES.map((pr) => (
-          <article className="phil" key={pr.n}>
-            <span className="phil-num">// {pr.n}</span>
-            <h3>{pr.h}</h3>
-            <p>{pr.p}</p>
-            <p className="quote">→ {pr.q}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ────────────────────────────────────────────────────────────
-// STACK
-// ────────────────────────────────────────────────────────────
-const STACK = [
-  {
-    h: 'Frontend',
-    items: [
-      ['TypeScript', 'core'],
-      ['React / Next.js', 'app router'],
-      ['React Native', 'native bridges'],
-      ['Tailwind / shadcn', 'design'],
-      ['Web Components', 'embeds'],
-    ],
-  },
-  {
-    h: 'Backend',
-    items: [
-      ['Node / Bun', 'runtime'],
-      ['Postgres + Drizzle', 'OLTP'],
-      ['Redis · KV', 'queues'],
-      ['Stripe / Resend', 'platform APIs'],
-      ['tRPC · Hono', 'RPC'],
-    ],
-  },
-  {
-    h: 'Infrastructure',
-    items: [
-      ['Vercel · Cloudflare', 'edge'],
-      ['Workers · Durable Obj.', 'compute'],
-      ['Turbo · Nx', 'monorepos'],
-      ['GitHub Actions', 'CI'],
-      ['OpenTelemetry', 'observe'],
-    ],
-  },
-  {
-    h: 'AI Tooling',
-    items: [
-      ['Claude Code', 'pair'],
-      ['Cursor', 'editor'],
-      ['LangChain · ai SDK', 'glue'],
-      ['Evals · Inkeep', 'guardrails'],
-      ['MCP servers', 'agents'],
-    ],
-  },
-];
-
-function Stack() {
-  return (
-    <section className="stack wrap" id="stack">
-      <div className="section-head">
-        <div>
-          <div className="section-eyebrow">Stack</div>
-          <h2 className="section-title">
-            Tools, grouped by where they earn their keep.
-          </h2>
-        </div>
-        <div className="section-meta">— Not a skills bar</div>
-      </div>
-      <div className="stack-grid">
-        {STACK.map((col) => (
-          <div className="stack-col" key={col.h}>
-            <h4>{col.h}</h4>
-            <div className="stack-list">
-              {col.items.map(([n, r]) => (
-                <div className="stack-item" key={n}>
-                  <span>{n}</span>
-                  <span className="role">{r}</span>
-                </div>
-              ))}
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>
@@ -265,9 +113,9 @@ function Contact({ onCopy }) {
           <div className="section-eyebrow" style={{marginBottom:18}}>Contact</div>
           <h2>Have something real to ship?</h2>
           <p>
-            I take on a small number of contracts per year — typically as
-            founding/lead engineer on a product where shipping velocity and
-            architectural taste both matter. Email is best.
+            I take on a small number of engagements — usually as a founding or
+            contract engineer where shipping velocity and judgment both matter.
+            I&apos;m booking from Q1 2027. Email is best.
           </p>
           <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
             <a href="mailto:hello@joshvermaire.com" className="btn btn-primary">
@@ -296,8 +144,8 @@ function Contact({ onCopy }) {
           </div>
           <div className="contact-row">
             <span className="lbl">Status</span>
-            <span className="val" style={{color:'var(--accent)'}}>Available · Q3 2026</span>
-            <span className="copy" style={{cursor:'default'}}>open</span>
+            <span className="val" style={{color:'var(--accent)'}}>Available from Q1 2027</span>
+            <span className="copy" style={{cursor:'default'}}>booking</span>
           </div>
         </div>
       </div>
@@ -314,7 +162,7 @@ function Footer() {
       <div className="foot-inner">
         <div className="bullets">
           <span><i></i>Independent · contract</span>
-          <span>Boulder, CO · UTC−7</span>
+          <span>Available from Q1 2027</span>
         </div>
         <div>© {new Date().getFullYear()} Josh Vermaire — built with care, not a template.</div>
       </div>
@@ -322,4 +170,4 @@ function Footer() {
   );
 }
 
-Object.assign(window, { Projects, Philosophy, Stack, Contact, Footer });
+Object.assign(window, { Projects, Contact, Footer });

@@ -498,7 +498,7 @@ section { position: relative; z-index: 1; }
 .proj {
   position: relative;
   display: grid;
-  grid-template-columns: 220px 1fr 1fr;
+  grid-template-columns: 220px 1fr;
   gap: 32px;
   padding: 28px;
   background: var(--panel);
@@ -547,31 +547,6 @@ section { position: relative; z-index: 1; }
 .proj-body p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.6; }
 .proj-body p b { color: var(--text); font-weight: 500; }
 .proj-stack { display: flex; flex-wrap: wrap; gap: 6px; }
-.proj-side {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  border-left: 1px solid var(--border);
-  padding-left: 28px;
-}
-.proj-side .label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: .1em;
-  color: var(--dim);
-  text-transform: uppercase;
-}
-.metric { display: flex; flex-direction: column; gap: 4px; }
-.metric .v {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -.02em;
-  color: var(--text);
-  font-feature-settings: 'tnum';
-}
-.metric .v.accent { color: var(--accent); }
-.metric .lbl { font-size: 12px; color: var(--muted); }
 .proj-links { display: flex; gap: 14px; margin-top: 4px; }
 .proj-links a {
   font-family: var(--font-mono);
