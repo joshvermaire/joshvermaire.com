@@ -160,6 +160,24 @@ export function Projects({ onMouseMoveProj }) {
           ))}
         </div>
       </div>
+
+      <div className="career-history" aria-label="Earlier work at Groupon, ThisLife, and Shutterfly">
+        <div className="career-history-label">
+          <span>Earlier work</span>
+          <strong>Built for millions before going independent</strong>
+        </div>
+        <div className="career-logos">
+          <div className="career-logo">
+            <img src="/logos/groupon.png" alt="Groupon" />
+          </div>
+          <div className="career-logo">
+            <img src="/logos/shutterfly.png" alt="Shutterfly" />
+          </div>
+          <div className="career-logo career-logo-thislife">
+            <img src="/logos/thislife.png" alt="ThisLife" />
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -795,6 +795,65 @@ section { position: relative; z-index: 1; }
 .proj-compact .proj-stack {
   margin-top: 24px;
 }
+.career-history {
+  display: grid;
+  grid-template-columns: minmax(210px, .72fr) minmax(0, 2.28fr);
+  margin-top: 56px;
+  border: 1px solid var(--border-2);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--panel);
+}
+.career-history-label {
+  min-height: 124px;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--accent) 12%, transparent), transparent 72%),
+    var(--panel-2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.career-history-label span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.career-history-label strong {
+  max-width: 210px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text);
+}
+.career-logos {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.career-logo {
+  min-width: 0;
+  min-height: 124px;
+  padding: 28px clamp(22px, 3vw, 42px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid var(--border);
+  background: rgba(255, 255, 255, .012);
+}
+.career-logo img {
+  display: block;
+  width: 100%;
+  max-width: 190px;
+  max-height: 40px;
+  object-fit: contain;
+}
+.career-logo-thislife img {
+  max-height: 43px;
+}
 @keyframes signal {
   from { transform: scaleY(.82); opacity: .76; }
   to { transform: scaleY(1.08); opacity: 1; }
@@ -1164,6 +1223,19 @@ footer {
   .nav-links { display: none; }
   .section-head { flex-direction: column; align-items: flex-start; gap: 14px; }
   .hero-data { grid-template-columns: 1fr; }
+  .career-history { grid-template-columns: 1fr; }
+  .career-history-label {
+    min-height: 0;
+    padding: 18px 22px;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+  .career-history-label strong {
+    max-width: 300px;
+    text-align: right;
+  }
+  .career-logo:first-child { border-left: 0; }
 }
 @media (max-width: 540px) {
   :root { --gutter: 18px; }
@@ -1192,6 +1264,25 @@ footer {
   .artifact-layers em { display: none; }
   .proj-compact { padding: 26px 22px; }
   .proj-compact .proj-tagline { margin-top: 32px; }
+  .career-history { margin-top: 40px; }
+  .career-history-label {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .career-history-label strong {
+    max-width: none;
+    text-align: left;
+  }
+  .career-logos { grid-template-columns: 1fr; }
+  .career-logo {
+    min-height: 98px;
+    padding: 24px 42px;
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+  .career-logo img { max-width: 180px; max-height: 36px; }
+  .career-logo-thislife img { max-height: 40px; }
   .foot-inner { flex-direction: column; align-items: flex-start; }
 }
 
