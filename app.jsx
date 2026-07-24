@@ -1,4 +1,7 @@
-// app.jsx — main app, hero, nav, command palette
+// app.jsx: main app, hero, nav, command palette
+
+import React from 'react';
+import { Contact, Footer, Projects } from './sections.jsx';
 
 // ────────────────────────────────────────────────────────────
 // NAV
@@ -8,7 +11,7 @@ function Nav({ onOpenCmdK }) {
     <header className="nav">
       <div className="nav-inner">
         <a href="#top" className="nav-brand">
-          <span className="mark">jv</span>
+          <span className="mark"><img src="/favicon-192.png" alt="" /></span>
           <span>Josh Vermaire</span>
         </a>
         <nav className="nav-links">
@@ -21,7 +24,7 @@ function Nav({ onOpenCmdK }) {
             <span className="kbd">⌘K</span>
           </button>
           <a href="#contact" className="btn btn-primary">
-            Get in touch <span className="arrow">→</span>
+            Start a conversation <span className="arrow">→</span>
           </a>
         </div>
       </div>
@@ -40,31 +43,31 @@ function Hero() {
           <div>
             <span className="hero-eyebrow">
               <span className="pulse"></span>
-              Available from Q1 2027
+              Booking Q1 2027
             </span>
             <h1>
-              Full-stack engineer<br/>
-              <span className="accent">building real systems.</span>
+              Software engineer<br/>
+              <span className="accent">putting AI to work</span>
             </h1>
             <p className="hero-sub">
-              I&apos;m <b>Josh Vermaire</b> — a senior engineer and independent
-              contractor. I ship <b>SaaS products, SDKs, and AI-native workflows</b>,
-              and I move fast across whatever stack the problem calls for.
+              I&apos;m <b>Josh Vermaire</b>. I help businesses <b>automate workflows,
+              accelerate development, and ship reliable products.</b>
             </p>
             <div className="hero-meta">
-              <span className="tag alt">TypeScript</span>
+              <span className="tag alt">AI automation</span>
+              <span className="tag">AI-native development</span>
+              <span className="tag">SaaS products</span>
+              <span className="tag">SDK design</span>
+              <span className="tag">TypeScript</span>
               <span className="tag">React / Next.js</span>
               <span className="tag">React Native</span>
-              <span className="tag">SDK design</span>
-              <span className="tag">Edge / serverless</span>
-              <span className="tag">AI workflows</span>
             </div>
             <div className="hero-cta">
               <a href="#projects" className="btn btn-primary">
                 See selected work <span className="arrow">→</span>
               </a>
               <a href="#contact" className="btn btn-ghost">
-                hello@joshvermaire.com
+                Start a conversation
               </a>
             </div>
           </div>
@@ -241,8 +244,8 @@ function App() {
       label: 'Open',
       items: [
         { kind: 'ext',  label: 'Surge Reviews',     meta: 'project', keywords: 'review saas inspection', run: () => jump('projects') },
-        { kind: 'ext',  label: 'Auddia · Faidr',    meta: 'project', keywords: 'react native radio', run: () => jump('projects') },
-        { kind: 'ext',  label: 'Nami Web SDK',      meta: 'project', keywords: 'paywall sdk typescript', run: () => jump('projects') },
+        { kind: 'ext',  label: 'Auddia · faidr',    meta: 'project', keywords: 'react native radio', run: () => jump('projects') },
+        { kind: 'ext',  label: 'Nami',              meta: 'project', keywords: 'paywall sdk typescript', run: () => jump('projects') },
         { kind: 'ext',  label: 'GitHub · @joshvermaire', meta: '↗', run: () => window.open('https://github.com/joshvermaire', '_blank') },
         { kind: 'ext',  label: 'X · @joshvermaire',      meta: '↗', run: () => window.open('https://x.com/joshvermaire', '_blank') },
       ],
@@ -284,4 +287,4 @@ function App() {
   );
 }
 
-window.App = App;
+export default App;

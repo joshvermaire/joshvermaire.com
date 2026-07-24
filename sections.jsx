@@ -1,102 +1,164 @@
-// sections.jsx — Projects (work), Contact, Footer
+// sections.jsx: projects, contact, footer
+
+import React from 'react';
 
 const PROJECTS = [
   {
-    idx: '01',
-    name: 'Surge Reviews',
-    role: 'Founding engineer · 2024 — present',
-    tagline: 'Home-inspection review management, automated.',
-    blurb: (
-      <>
-        A multi-tenant SaaS that turns inspection reports into automated
-        review requests. I built the whole thing — the <b>request engine</b>,
-        public inspector profiles, and a rules-based automation layer — on a
-        Turborepo with <b>Next.js, Supabase, and Resend</b>. Most of the work
-        lives in the unglamorous parts: deliverability, idempotency, and
-        keeping the request flow reliable.
-      </>
-    ),
-    stack: ['Next.js', 'TypeScript', 'Supabase', 'Polar', 'Resend', 'Vercel'],
-    links: [
-      { label: 'Live', href: 'https://surge.reviews' },
-    ],
-  },
-  {
-    idx: '02',
-    name: 'Auddia · Faidr',
+    category: 'Mobile modernization',
+    name: 'Auddia · faidr',
     role: 'Independent contractor · ongoing',
-    tagline: 'Commercial-free radio, in React Native.',
-    blurb: (
-      <>
-        As an independent contractor, I work on Faidr&apos;s mobile app in
-        <b> React Native</b>. The playback core is built on
-        <b> react-native-track-player</b>, app state runs through
-        <b> Zustand</b>, and native functionality is bridged with
-        <b> Nitro Modules</b> — background streaming, offline behavior, and the
-        kind of audio-pipeline details that have to be exactly right.
-      </>
-    ),
-    stack: ['React Native', 'TypeScript', 'Zustand', 'Track Player', 'Nitro Modules', 'React Navigation'],
+    tagline: 'Lower costs, faster releases, and a more reliable live audio app',
+    blurb: 'I help replace costly parts of faidr’s mobile stack with an in-house React Native foundation. The work spans playback stability, difficult production issues, native integration, and customer-facing releases across iOS and Android.',
+    evidence: [
+      { label: 'Foundation', value: 'In-house React Native' },
+      { label: 'Platforms', value: 'iOS + Android' },
+      { label: 'Focus', value: 'Playback · reliability' },
+    ],
+    stack: ['Mobile systems', 'Live audio', 'Product delivery'],
     links: [
-      { label: 'iOS', href: 'https://apps.apple.com/us/app/faidr/id1558795470' },
-      { label: 'Android', href: 'https://play.google.com/store/apps/details?id=com.auddia.faidr' },
+      { label: 'View on iOS', href: 'https://apps.apple.com/us/app/faidr/id1558795470' },
+      { label: 'View on Android', href: 'https://play.google.com/store/apps/details?id=com.auddia.faidr' },
     ],
   },
   {
-    idx: '03',
-    name: 'Nami Web SDK',
-    role: 'Independent contractor · Summers 2024 & 2025',
-    tagline: 'No-code paywalls, everywhere — a TypeScript SDK.',
-    blurb: (
-      <>
-        A typed SDK that renders Nami&apos;s no-code subscription pages and
-        paywalls on <b>web, desktop, and smart-TV</b> targets. I designed and
-        built the whole thing — the public API surface, an event/state model
-        that survives awkward embed contexts, and a build pipeline that ships
-        ESM, CJS, IIFE, and UMD bundles from one source of truth.
-      </>
-    ),
-    stack: ['TypeScript', 'tsup', 'Vitest', 'Web Components', 'Smart-TV runtimes'],
+    category: 'Founder-led SaaS',
+    name: 'Surge Reviews',
+    role: 'Founding engineer · 2024 to present',
+    tagline: 'Automated customer follow-up for home inspectors',
+    blurb: 'I built Surge end to end to turn completed home inspections into reliable, automated customer review requests.',
+    stack: ['Workflow automation', 'SaaS', 'Product ownership'],
     links: [
-      { label: 'Docs', href: 'https://docs.namiml.com' },
+      { label: 'Visit Surge Reviews', href: 'https://surge.reviews' },
+    ],
+  },
+  {
+    category: 'SDK architecture',
+    name: 'Nami',
+    role: 'Independent contractor · 2024 and 2025',
+    tagline: 'No-code paywalls everywhere, through a TypeScript SDK',
+    blurb: 'I designed and built a TypeScript SDK that brings Nami’s no-code paywalls to web, desktop, and smart-TV apps.',
+    stack: ['TypeScript', 'Cross-platform SDK', 'Smart-TV runtimes'],
+    links: [
+      { label: 'Read the SDK docs', href: 'https://docs.namiml.com' },
     ],
   },
 ];
 
-function Projects({ onMouseMoveProj }) {
+export function Projects({ onMouseMoveProj }) {
+  const [featured, ...supporting] = PROJECTS;
+  const waveform = [28, 42, 66, 38, 78, 54, 88, 46, 70, 34, 58, 84, 48, 72, 40, 62, 30, 52, 76, 44, 68, 36, 56, 82];
+
   return (
     <section className="projects wrap" id="projects">
       <div className="section-head">
         <div>
           <div className="section-eyebrow">Selected work</div>
-          <h2 className="section-title">
-            Work I&apos;ve shipped.
-          </h2>
+          <h2 className="section-title">Work I&apos;ve shipped.</h2>
         </div>
-        <div className="section-meta">{PROJECTS.length.toString().padStart(2,'0')} / {PROJECTS.length.toString().padStart(2,'0')}</div>
+        <div className="section-meta">Active engagement + selected builds</div>
       </div>
+
       <div className="proj-list">
-        {PROJECTS.map((p) => (
-          <article key={p.idx} className="proj" onMouseMove={onMouseMoveProj}>
-            <header className="proj-head">
-              <div className="proj-idx">// {p.idx}</div>
-              <div className="proj-name">{p.name}</div>
-              <div className="proj-role">{p.role}</div>
-            </header>
-            <div className="proj-body">
-              <p style={{color:'var(--text)',fontSize:'15px'}}><b>{p.tagline}</b></p>
-              <p>{p.blurb}</p>
-              <div className="proj-stack">
-                {p.stack.map((s) => <span className="tag" key={s}>{s}</span>)}
-              </div>
-              <div className="proj-links">
-                {p.links.map((l) => (
-                  <a key={l.label} href={l.href} target="_blank" rel="noreferrer">{l.label} ↗</a>
+        <article className="proj proj-featured" onMouseMove={onMouseMoveProj}>
+          <div className="proj-feature-copy">
+            <div className="proj-kicker">
+              <span className="proj-status">Active work</span>
+              <span>{featured.category}</span>
+            </div>
+            <h3 className="proj-name">{featured.name}</h3>
+            <div className="proj-role">{featured.role}</div>
+            <p className="proj-tagline">{featured.tagline}</p>
+            <p className="proj-blurb">{featured.blurb}</p>
+
+            <dl className="proj-evidence">
+              {featured.evidence.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.label}</dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="proj-stack">
+              {featured.stack.map((item) => <span className="tag" key={item}>{item}</span>)}
+            </div>
+            <div className="proj-links proj-links-featured">
+              {featured.links.map((link, index) => (
+                <a
+                  key={link.label}
+                  className={index === 0 ? 'proj-link-primary' : ''}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {link.label} <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="proj-artifact" aria-label="Live audio mobile system">
+            <div className="artifact-topline">
+              <span>faidr mobile system</span>
+              <span className="artifact-live"><i></i> live</span>
+            </div>
+            <div className="artifact-stage">
+              <div className="artifact-label">Playback signal</div>
+              <div className="waveform" aria-hidden="true">
+                {waveform.map((height, index) => (
+                  <i key={index} style={{'--wave-height': `${height}%`, '--wave-delay': `${index * -70}ms`}}></i>
                 ))}
               </div>
+              <div className="artifact-time">
+                <span>00:00</span>
+                <span>continuous</span>
+              </div>
             </div>
-          </article>
-        ))}
+            <div className="artifact-layers">
+              <div>
+                <span>01</span>
+                <strong>Playback core</strong>
+                <em>stable</em>
+              </div>
+              <div>
+                <span>02</span>
+                <strong>Native integration</strong>
+                <em>in-house</em>
+              </div>
+              <div>
+                <span>03</span>
+                <strong>Cross-platform releases</strong>
+                <em>iOS · Android</em>
+              </div>
+            </div>
+            <div className="artifact-foot">
+              <span>Production audio</span>
+              <span>Ongoing delivery</span>
+            </div>
+          </div>
+        </article>
+
+        <div className="proj-supporting">
+          {supporting.map((project) => (
+            <article key={project.name} className="proj proj-compact" onMouseMove={onMouseMoveProj}>
+              <div className="proj-kicker">{project.category}</div>
+              <h3 className="proj-name">{project.name}</h3>
+              <div className="proj-role">{project.role}</div>
+              <p className="proj-tagline">{project.tagline}</p>
+              <p className="proj-blurb">{project.blurb}</p>
+              <div className="proj-stack">
+                {project.stack.map((item) => <span className="tag" key={item}>{item}</span>)}
+              </div>
+              <div className="proj-links">
+                {project.links.map((link) => (
+                  <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
+                    {link.label} <span aria-hidden="true">↗</span>
+                  </a>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -105,17 +167,18 @@ function Projects({ onMouseMoveProj }) {
 // ────────────────────────────────────────────────────────────
 // CONTACT
 // ────────────────────────────────────────────────────────────
-function Contact({ onCopy }) {
+export function Contact({ onCopy }) {
   return (
     <section className="contact wrap" id="contact">
       <div className="contact-card">
         <div>
           <div className="section-eyebrow" style={{marginBottom:18}}>Contact</div>
-          <h2>Have something real to ship?</h2>
+          <h2>Ready to automate and ship faster?</h2>
           <p>
-            I take on a small number of engagements — usually as a founding or
-            contract engineer where shipping velocity and judgment both matter.
-            I&apos;m booking from Q1 2027. Email is best.
+            I take on a small number of engagements as a senior product or
+            contract engineer, helping teams automate workflows, accelerate
+            development, and turn AI ideas into reliable production systems.
+            I&apos;m booking Q1 2027 and open to early conversations.
           </p>
           <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
             <a href="mailto:hello@joshvermaire.com" className="btn btn-primary">
@@ -138,14 +201,9 @@ function Contact({ onCopy }) {
             <button className="copy" onClick={() => onCopy('@joshvermaire', 'GitHub handle')}>copy</button>
           </div>
           <div className="contact-row">
-            <span className="lbl">X</span>
-            <a className="val" href="https://x.com/joshvermaire" target="_blank" rel="noreferrer">@joshvermaire</a>
-            <button className="copy" onClick={() => onCopy('@joshvermaire', 'X handle')}>copy</button>
-          </div>
-          <div className="contact-row">
             <span className="lbl">Status</span>
-            <span className="val" style={{color:'var(--accent)'}}>Available from Q1 2027</span>
-            <span className="copy" style={{cursor:'default'}}>booking</span>
+            <span className="val" style={{color:'var(--accent)'}}>Booking Q1 2027</span>
+            <span className="copy" style={{cursor:'default'}}>open</span>
           </div>
         </div>
       </div>
@@ -156,18 +214,16 @@ function Contact({ onCopy }) {
 // ────────────────────────────────────────────────────────────
 // FOOTER
 // ────────────────────────────────────────────────────────────
-function Footer() {
+export function Footer() {
   return (
     <footer>
       <div className="foot-inner">
         <div className="bullets">
           <span><i></i>Independent · contract</span>
-          <span>Available from Q1 2027</span>
+          <span>Booking Q1 2027</span>
         </div>
-        <div>© {new Date().getFullYear()} Josh Vermaire — built with care, not a template.</div>
+        <div>© {new Date().getFullYear()} Josh Vermaire · built with care</div>
       </div>
     </footer>
   );
 }
-
-Object.assign(window, { Projects, Contact, Footer });

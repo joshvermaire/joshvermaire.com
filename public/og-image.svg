@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="accent" x1="72" y1="72" x2="168" y2="168" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10B981"/>
+      <stop offset="1" stop-color="#A3E635"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(850 80) rotate(136) scale(620 390)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10B981" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#FFFFFF" stroke-opacity=".045"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#0B0C0F"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <image href="favicon-192.png" x="72" y="68" width="56" height="56"/>
+  <text x="148" y="105" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="600" fill="#E6E8EB">Josh Vermaire</text>
+  <circle cx="78" cy="194" r="5" fill="#10B981"/>
+  <text x="96" y="201" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" letter-spacing="2" fill="#9AA0A6">BOOKING Q1 2027</text>
+  <text x="72" y="314" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="600" letter-spacing="-3" fill="#E6E8EB">Software engineer</text>
+  <text x="72" y="395" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="600" letter-spacing="-3" fill="#B7BBC1">putting AI to work</text>
+  <text x="72" y="486" font-family="Inter, Arial, sans-serif" font-size="25" fill="#9AA0A6">Automate work. Accelerate development. Ship faster.</text>
+  <text x="72" y="560" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#10B981">joshvermaire.com</text>
+</svg>

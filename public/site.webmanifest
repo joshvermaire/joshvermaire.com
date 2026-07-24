@@ -1,0 +1,21 @@
+{
+  "name": "Josh Vermaire: Software Engineer",
+  "short_name": "Josh Vermaire",
+  "description": "Software engineer putting AI to work through automation and reliable products.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0C0F",
+  "theme_color": "#0B0C0F",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

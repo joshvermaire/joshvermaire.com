@@ -1,5 +1,18 @@
 # joshvermaire.com
 
-Personal portfolio site for [joshvermaire.com](https://joshvermaire.com).
+Personal portfolio site for [joshvermaire.com](https://joshvermaire.com), built with React and Vite.
 
-This is a static React site deployed on Vercel. Pushes to `main` deploy through the connected Vercel project.
+## Development
+
+```sh
+npm install
+npm run dev
+```
+
+Create a production build with:
+
+```sh
+npm run build
+```
+
+The static production output is generated in `dist/`. Pushes to `main` deploy through the connected Vercel project.
