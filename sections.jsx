@@ -44,9 +44,150 @@ const PROJECTS = [
   },
 ];
 
+const SPECTRUM_BARS = Array.from({length: 24}, (_, index) => {
+  const frequency = index / 23;
+  return {
+    id: `band-${index + 1}`,
+    frequency,
+    bassResponse: Math.exp(-(((frequency - .12) / .22) ** 2)),
+    midResponse: Math.exp(-(((frequency - .48) / .30) ** 2)),
+    highResponse: Math.exp(-(((frequency - .82) / .20) ** 2)),
+    texture: .84 + Math.sin(index * 1.53) * .10 + Math.sin(index * .47) * .06,
+  };
+});
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const modulo = (value, divisor) => ((value % divisor) + divisor) % divisor;
+const pulse = (position, interval, decay) => Math.exp(-modulo(position, interval) * decay);
+
+function noise(position, seed) {
+  const start = Math.floor(position);
+  const amount = position - start;
+  const smooth = amount * amount * (3 - 2 * amount);
+  const sample = (point) => {
+    const value = Math.sin(point * 127.1 + seed * 311.7) * 43758.5453;
+    return value - Math.floor(value);
+  };
+
+  return sample(start) * (1 - smooth) + sample(start + 1) * smooth;
+}
+
+function getSpectrumLevels(time) {
+  const beat = time / (60 / 106);
+  const kick = pulse(beat, 1, 7.4);
+  const sub = pulse(beat, 2, 2.8);
+  const snare = pulse(beat - 1, 2, 8.8);
+  const hat = pulse(beat, .5, 18);
+  const offbeatHat = pulse(beat - .5, 1, 15);
+  const phrase =
+    .78 +
+    Math.sin(beat * Math.PI / 16) * .12 +
+    Math.sin(beat * Math.PI / 7) * .06;
+  const measureVariation = .86 + noise(beat / 4, 7) * .22;
+  const bass = (.22 + kick * .62 + sub * .24) * phrase * measureVariation;
+  const mid = (.24 + snare * .38 + kick * .15 + noise(time * 1.7, 13) * .12) * phrase;
+  const high = .15 + hat * .26 + offbeatHat * .12 + snare * .12 + noise(time * 5.2, 29) * .09;
+
+  return SPECTRUM_BARS.map((band, index) => {
+    const sharedMovement =
+      .90 +
+      Math.sin(time * (2.8 + band.frequency * 2.1) + index * .32) * .07 +
+      (noise(time * 7 + index * .18, 41) - .5) * .08;
+    const energy =
+      bass * band.bassResponse * .70 +
+      mid * band.midResponse * .52 +
+      high * band.highResponse * .40;
+
+    return clamp(.10 + energy * band.texture * sharedMovement, .10, .96);
+  });
+}
+
+function PlaybackSpectrum() {
+  const waveformRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const waveform = waveformRef.current;
+    if (!waveform) return undefined;
+
+    const bars = Array.from(waveform.children);
+    const peaks = new Float32Array(bars.length);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let animationFrame = null;
+    let lastFrame = 0;
+    let visible = true;
+
+    const render = (time, elapsed = .05) => {
+      getSpectrumLevels(time).forEach((level, index) => {
+        peaks[index] = clamp(
+          level > peaks[index] ? level + .04 : Math.max(level + .015, peaks[index] - elapsed * .22),
+          .08,
+          .98,
+        );
+        bars[index].style.setProperty('--current-level', level.toFixed(3));
+        bars[index].style.setProperty('--current-peak', `${(peaks[index] * 100).toFixed(1)}%`);
+        bars[index].style.setProperty('--current-opacity', (.82 + level * .18).toFixed(2));
+      });
+    };
+
+    const stop = () => {
+      if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+      animationFrame = null;
+    };
+
+    const animate = (now) => {
+      animationFrame = null;
+      if (!visible || reducedMotion.matches) return;
+
+      const elapsed = Math.min((now - lastFrame) / 1000, .1);
+      if (now - lastFrame >= 50) {
+        render(now / 1000, elapsed);
+        lastFrame = now;
+      }
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    const start = () => {
+      if (animationFrame !== null || !visible || reducedMotion.matches) return;
+      lastFrame = performance.now();
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    const handleMotionPreference = () => {
+      if (reducedMotion.matches) {
+        stop();
+        render(2.4);
+      } else {
+        start();
+      }
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+      else stop();
+    }, {rootMargin: '120px'});
+
+    render(2.4);
+    observer.observe(waveform);
+    reducedMotion.addEventListener('change', handleMotionPreference);
+    handleMotionPreference();
+
+    return () => {
+      stop();
+      observer.disconnect();
+      reducedMotion.removeEventListener('change', handleMotionPreference);
+    };
+  }, []);
+
+  return (
+    <div className="waveform" ref={waveformRef} aria-hidden="true">
+      {SPECTRUM_BARS.map((bar) => <i key={bar.id}></i>)}
+    </div>
+  );
+}
+
 export function Projects({ onMouseMoveProj }) {
   const [featured, ...supporting] = PROJECTS;
-  const waveform = [28, 42, 66, 38, 78, 54, 88, 46, 70, 34, 58, 84, 48, 72, 40, 62, 30, 52, 76, 44, 68, 36, 56, 82];
 
   return (
     <section className="projects wrap" id="projects">
@@ -104,11 +245,7 @@ export function Projects({ onMouseMoveProj }) {
             </div>
             <div className="artifact-stage">
               <div className="artifact-label">Playback signal</div>
-              <div className="waveform" aria-hidden="true">
-                {waveform.map((height, index) => (
-                  <i key={index} style={{'--wave-height': `${height}%`, '--wave-delay': `${index * -70}ms`}}></i>
-                ))}
-              </div>
+              <PlaybackSpectrum />
               <div className="artifact-time">
                 <span>00:00</span>
                 <span>continuous</span>

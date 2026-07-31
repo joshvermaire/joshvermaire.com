@@ -714,20 +714,60 @@ section { position: relative; z-index: 1; }
 .waveform {
   height: 104px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: clamp(4px, .55vw, 7px);
-  padding: 0 2px;
+  padding: 6px 2px 4px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in oklab, var(--accent) 16%, var(--border));
+}
+.waveform::before {
+  content: '';
+  position: absolute;
+  inset: 6px 0 4px;
+  background: repeating-linear-gradient(
+    to top,
+    transparent 0 17px,
+    color-mix(in oklab, var(--accent) 8%, transparent) 17px 18px
+  );
+  pointer-events: none;
 }
 .waveform i {
+  position: relative;
+  z-index: 1;
   flex: 1;
-  height: var(--wave-height);
   min-width: 3px;
   max-width: 9px;
-  border-radius: 999px;
-  background: linear-gradient(to top, var(--accent), var(--accent-2));
-  box-shadow: 0 0 18px color-mix(in oklab, var(--accent) 22%, transparent);
-  transform-origin: center;
-  animation: signal 2.8s ease-in-out var(--wave-delay) infinite alternate;
+  height: 100%;
+}
+.waveform i::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1px;
+  background: linear-gradient(
+    to top,
+    var(--accent) 0%,
+    var(--accent) 64%,
+    var(--accent-2) 100%
+  );
+  -webkit-mask: repeating-linear-gradient(to top, #000 0 4px, transparent 4px 7px);
+  mask: repeating-linear-gradient(to top, #000 0 4px, transparent 4px 7px);
+  transform: scaleY(var(--current-level, .34));
+  transform-origin: bottom;
+  filter: drop-shadow(0 0 7px color-mix(in oklab, var(--accent) 42%, transparent));
+  opacity: var(--current-opacity, .86);
+}
+.waveform i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--accent-2), var(--accent-2))
+    top / 100% 2px no-repeat;
+  filter: drop-shadow(0 0 7px color-mix(in oklab, var(--accent-2) 55%, transparent));
+  transform: translateY(calc(100% - var(--current-peak, 38%)));
+  opacity: .62;
 }
 .artifact-time {
   display: flex;
@@ -854,11 +894,6 @@ section { position: relative; z-index: 1; }
 .career-logo-thislife img {
   max-height: 43px;
 }
-@keyframes signal {
-  from { transform: scaleY(.82); opacity: .76; }
-  to { transform: scaleY(1.08); opacity: 1; }
-}
-
 /* ───────────── Philosophy ───────────── */
 .philosophy { padding: 80px 0; }
 .phil-grid {
@@ -1284,8 +1319,4 @@ footer {
   .career-logo img { max-width: 180px; max-height: 36px; }
   .career-logo-thislife img { max-height: 40px; }
   .foot-inner { flex-direction: column; align-items: flex-start; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .waveform i { animation: none; }
 }
