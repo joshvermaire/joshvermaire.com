@@ -44,8 +44,9 @@ const PROJECTS = [
   },
 ];
 
-const SPECTRUM_BARS = Array.from({length: 24}, (_, index) => {
-  const frequency = index / 23;
+const SPECTRUM_BAND_COUNT = 32;
+const SPECTRUM_BARS = Array.from({length: SPECTRUM_BAND_COUNT}, (_, index) => {
+  const frequency = index / (SPECTRUM_BAND_COUNT - 1);
   return {
     id: `band-${index + 1}`,
     frequency,

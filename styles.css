@@ -651,8 +651,10 @@ section { position: relative; z-index: 1; }
   border-color: var(--accent-2);
 }
 .proj-artifact {
+  --artifact-gutter: clamp(20px, 2vw, 26px);
   position: relative;
   z-index: 1;
+  align-self: center;
   min-width: 0;
   margin: 20px 20px 20px 0;
   border: 1px solid var(--border-2);
@@ -673,7 +675,7 @@ section { position: relative; z-index: 1; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 16px;
+  padding: 15px var(--artifact-gutter);
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--dim);
@@ -697,14 +699,14 @@ section { position: relative; z-index: 1; }
 }
 .artifact-stage {
   flex: 1;
-  min-height: 240px;
-  padding: 34px 24px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-height: 270px;
+  padding: 30px var(--artifact-gutter) 26px;
+  display: grid;
+  grid-template-rows: auto minmax(118px, 1fr) auto;
+  align-items: stretch;
 }
 .artifact-label {
-  margin-bottom: 28px;
+  margin-bottom: 18px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: .1em;
@@ -712,10 +714,11 @@ section { position: relative; z-index: 1; }
   color: var(--muted);
 }
 .waveform {
-  height: 104px;
+  min-height: 118px;
   display: flex;
   align-items: stretch;
-  gap: clamp(4px, .55vw, 7px);
+  justify-content: space-between;
+  gap: clamp(2px, .3vw, 4px);
   padding: 6px 2px 4px;
   position: relative;
   overflow: hidden;
@@ -735,9 +738,9 @@ section { position: relative; z-index: 1; }
 .waveform i {
   position: relative;
   z-index: 1;
-  flex: 1;
-  min-width: 3px;
-  max-width: 9px;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 14px;
   height: 100%;
 }
 .waveform i::before {
@@ -772,14 +775,14 @@ section { position: relative; z-index: 1; }
 .artifact-time {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 14px;
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--dim);
   letter-spacing: .06em;
 }
 .artifact-layers {
-  margin: 0 16px 16px;
+  margin: 0 var(--artifact-gutter) 22px;
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
@@ -788,9 +791,9 @@ section { position: relative; z-index: 1; }
   display: grid;
   grid-template-columns: 28px 1fr auto;
   align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 0 14px;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 16px;
   background: color-mix(in oklab, var(--panel) 85%, transparent);
   border-bottom: 1px solid var(--border);
 }
