@@ -702,7 +702,7 @@ section { position: relative; z-index: 1; }
   min-height: 270px;
   padding: 30px var(--artifact-gutter) 26px;
   display: grid;
-  grid-template-rows: auto minmax(118px, 1fr) auto;
+  grid-template-rows: auto minmax(118px, 1fr);
   align-items: stretch;
 }
 .artifact-label {
@@ -771,15 +771,6 @@ section { position: relative; z-index: 1; }
   filter: drop-shadow(0 0 7px color-mix(in oklab, var(--accent-2) 55%, transparent));
   transform: translateY(calc(100% - var(--current-peak, 38%)));
   opacity: .62;
-}
-.artifact-time {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 14px;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--dim);
-  letter-spacing: .06em;
 }
 .artifact-layers {
   margin: 0 var(--artifact-gutter) 22px;

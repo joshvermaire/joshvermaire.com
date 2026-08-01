@@ -247,10 +247,6 @@ export function Projects({ onMouseMoveProj }) {
             <div className="artifact-stage">
               <div className="artifact-label">Playback signal</div>
               <PlaybackSpectrum />
-              <div className="artifact-time">
-                <span>00:00</span>
-                <span>continuous</span>
-              </div>
             </div>
             <div className="artifact-layers">
               <div>
