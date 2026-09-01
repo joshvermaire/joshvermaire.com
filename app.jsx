@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Contact, Footer, Projects } from './sections.jsx';
+import { AVAILABILITY_LABEL } from './constants.js';
 
 // ────────────────────────────────────────────────────────────
 // NAV
@@ -43,7 +44,7 @@ function Hero() {
           <div>
             <span className="hero-eyebrow">
               <span className="pulse"></span>
-              Booking Q1 2027
+              {AVAILABILITY_LABEL}
             </span>
             <h1>
               Software engineer<br/>
@@ -247,6 +248,7 @@ function App() {
         { kind: 'ext',  label: 'Auddia · faidr',    meta: 'project', keywords: 'react native radio', run: () => jump('projects') },
         { kind: 'ext',  label: 'Nami',              meta: 'project', keywords: 'paywall sdk typescript', run: () => jump('projects') },
         { kind: 'ext',  label: 'GitHub · @joshvermaire', meta: '↗', run: () => window.open('https://github.com/joshvermaire', '_blank') },
+        { kind: 'ext',  label: 'LinkedIn · joshvermaire', meta: '↗', run: () => window.open('https://www.linkedin.com/in/joshvermaire/', '_blank') },
         { kind: 'ext',  label: 'X · @joshvermaire',      meta: '↗', run: () => window.open('https://x.com/joshvermaire', '_blank') },
       ],
     },

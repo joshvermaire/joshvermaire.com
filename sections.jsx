@@ -1,6 +1,7 @@
 // sections.jsx: projects, contact, footer
 
 import React from 'react';
+import { AVAILABILITY_LABEL, NEXT_AVAILABILITY } from './constants.js';
 
 const PROJECTS = [
   {
@@ -330,7 +331,7 @@ export function Contact({ onCopy }) {
             I take on a small number of engagements as a senior product or
             contract engineer, helping teams automate workflows, accelerate
             development, and turn AI ideas into reliable production systems.
-            I&apos;m booking Q1 2027 and open to early conversations.
+            I&apos;m booking {NEXT_AVAILABILITY} and open to early conversations.
           </p>
           <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
             <a href="mailto:hello@joshvermaire.com" className="btn btn-primary">
@@ -354,7 +355,7 @@ export function Contact({ onCopy }) {
           </div>
           <div className="contact-row">
             <span className="lbl">Status</span>
-            <span className="val" style={{color:'var(--accent)'}}>Booking Q1 2027</span>
+            <span className="val" style={{color:'var(--accent)'}}>{AVAILABILITY_LABEL}</span>
             <span className="copy" style={{cursor:'default'}}>open</span>
           </div>
         </div>
@@ -372,7 +373,7 @@ export function Footer() {
       <div className="foot-inner">
         <div className="bullets">
           <span><i></i>Independent · contract</span>
-          <span>Booking Q1 2027</span>
+          <span>{AVAILABILITY_LABEL}</span>
         </div>
         <div>© {new Date().getFullYear()} Josh Vermaire · built with care</div>
       </div>
