@@ -354,6 +354,11 @@ export function Contact({ onCopy }) {
             <button className="copy" onClick={() => onCopy('@joshvermaire', 'GitHub handle')}>copy</button>
           </div>
           <div className="contact-row">
+            <span className="lbl">LinkedIn</span>
+            <a className="val" href="https://www.linkedin.com/in/joshvermaire/" target="_blank" rel="noreferrer">in/joshvermaire</a>
+            <button className="copy" onClick={() => onCopy('https://www.linkedin.com/in/joshvermaire/', 'LinkedIn URL')}>copy</button>
+          </div>
+          <div className="contact-row">
             <span className="lbl">Status</span>
             <span className="val" style={{color:'var(--accent)'}}>{AVAILABILITY_LABEL}</span>
             <span className="copy" style={{cursor:'default'}}>open</span>
